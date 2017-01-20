@@ -35,10 +35,12 @@ class Skill extends Model
         return $this->hasOne(User::class, 'creator_id');
     }
 
-
-//    public function users()
-//    {
-//        return $this->belongsToMany(User::class)->withPivot('relationship');
-//    }
+    /**
+     * @return BelongsToMany
+     */
+    public function users()
+    {
+        return $this->belongsToMany(User::class);
+    }
 
 }
