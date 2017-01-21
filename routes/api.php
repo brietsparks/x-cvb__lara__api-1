@@ -6,12 +6,17 @@ use Illuminate\Http\Request;
 //    return $request->user();
 //})->middleware('auth:api');
 
-Route::group(['prefix' => 'rest/v0'], function () {
+Route::group(['prefix' => 'rest'], function () {
 
-//    Route::resource('user/skills', 'Api\Builder\User\SkillsController');
-    Route::resource('exps', 'Api\Common\ExpController');
-//    Route::resource('exp/{expId}/skills', 'Api\Builder\Exp\SkillsController');
+    Route::group(['prefix' => 'v0'], function () {
 
+        Route::group(['prefix' => 'builder'], function () {
+        //    Route::resource('user/skills', 'Api\Builder\User\SkillsController');
+            Route::resource('exps',                 'Api\Builder\ExpsController');
+            Route::resource('exps/{expId}/skills',  'Api\Builder\Exp\SkillsController');
+            Route::resource('users/{user_id}/exps', 'Api\Builder\User\ExpsController');
+
+        });
 
 
 
@@ -25,5 +30,7 @@ Route::group(['prefix' => 'rest/v0'], function () {
 //        Route::post('login', 'Api\Common\Auth\AuthController@login');
 //        Route::post('authenticate', 'Api\Common\Auth\AuthController@authenticate');
 //    });
+    });
+
 });
 

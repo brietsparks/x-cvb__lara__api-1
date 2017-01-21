@@ -2,7 +2,12 @@
 
 namespace App\Http\Controllers\Api\Builder\User;
 
-class ExpsController extends ExpsCont
+
+
+
+use App\Http\Controllers\Api\Common\User\ExpsController as BaseExpsController;
+
+class ExpsController extends BaseExpsController
 {
 
 }
