@@ -32,10 +32,10 @@ class ExpsController extends ApiController
     {
         return $this->methodNotAllowed();
     }
-    
+
     public function show($user_id, $exp_id)
     {
-        
+        return $this->methodNotAllowed();
     }
 
     public function update(Request $request, $id)
