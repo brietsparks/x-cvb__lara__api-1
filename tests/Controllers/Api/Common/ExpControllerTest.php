@@ -17,7 +17,12 @@ class ExpControllerTest extends ApiTestCase
     {
         $user = $this->createAuthUser();
 
-        print_r($user->toArray());
+        $r = $this->getJson($uri = $this->uri(), ['user_id' => 'foo']);
+
+        print_r(
+//            $this->uri()
+            $this->response->getOriginalContent()
+        );
     }
 
 }

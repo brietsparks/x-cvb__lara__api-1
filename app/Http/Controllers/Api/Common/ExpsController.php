@@ -7,7 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Collection;
 
-class ExpController extends ApiController
+class ExpsController extends ApiController
 {
 
     /**
@@ -33,7 +33,9 @@ class ExpController extends ApiController
      */
     public function index(Request $request)
     {
-        $userId = $request->get('user_id');
+        $userId = $request->query('user_id');
+
+        print_r($request->toArray());
 
         return $userId;
 

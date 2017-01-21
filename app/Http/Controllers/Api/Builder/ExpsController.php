@@ -6,9 +6,9 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 
-use App\Http\Controllers\Api\Common\ExpController as BaseExpController;
+use App\Http\Controllers\Api\Common\ExpsController as BaseExpController;
 
-class ExpController extends BaseExpController
+class ExpsController extends BaseExpController
 {
 
     public function index(Request $request)
