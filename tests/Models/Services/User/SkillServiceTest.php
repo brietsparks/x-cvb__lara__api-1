@@ -1,11 +1,13 @@
 <?php
 
+namespace tests\Models\Services\User;
+
 use App\Models\Services\User\UserSkillService;
 use App\Models\Skill;
 use App\Models\User;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
+use tests\Models\Services\ServiceTestCase;
 
-class UserSkillServiceTest extends TestCase
+class SkillServiceTest extends ServiceTestCase
 {
 
     /**
@@ -13,30 +15,11 @@ class UserSkillServiceTest extends TestCase
      */
     protected $service;
 
-    use DatabaseTransactions;
-
     public function setUp()
     {
         parent::setUp();
 
         $this->service = \App::make(UserSkillService::class);
-    }
-
-    protected function createUser()
-    {
-        return factory(User::class)->create();
-    }
-
-//    protected function createAuthUser()
-//    {
-//        $user = $this->createUser();
-//        $this->actingAs($user);
-//        return $user;
-//    }
-
-    protected function createSkill()
-    {
-        return factory(Skill::class)->create();
     }
 
     /** @test */

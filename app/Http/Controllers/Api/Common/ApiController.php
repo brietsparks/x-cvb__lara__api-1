@@ -8,7 +8,7 @@ use Illuminate\Http\JsonResponse;
 class ApiController extends Controller
 {
 
-    use AccessesUserTrait;
+    use TokenUserTrait;
 
     public function methodNotAllowed($data = null)
     {

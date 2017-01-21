@@ -33,7 +33,9 @@ class ExpController extends ApiController
      */
     public function index(Request $request)
     {
-        $userId = $this->getUserId($request);
+        $userId = $request->get('user_id');
+
+        return $userId;
 
         return $this->service->getExpsByUserId($userId, false);
     }

@@ -12,7 +12,7 @@ class SkillsController extends BaseSkillsController
 
     public function store(Request $request)
     {
-        $userId = $this->getUser($request)->id;
+        $userId = $this->getTokenUser($request)->id;
 
         $skill = $this->service->createSkill($request->all(), $userId);
 

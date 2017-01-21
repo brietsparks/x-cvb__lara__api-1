@@ -22,14 +22,14 @@ class SkillsController extends ApiController
     public function index(Request $request)
     {
         return $this->service->getUserSkills(
-            $this->getUserId($request)
+            $this->getTokenUserId($request)
         );
     }
 
     public function show(Request $request, $skill_id)
     {
        return $this->service->getUserSkill(
-           $this->getUserId($request),
+           $this->getTokenUserId($request),
            $skill_id
        );
     }

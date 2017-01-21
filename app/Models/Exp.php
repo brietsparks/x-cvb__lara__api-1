@@ -38,7 +38,7 @@ class Exp extends Model
     }
 
     /**
-     * @return BelongsTo
+     * @return User
      */
     public function user()
     {

@@ -1,14 +1,13 @@
 <?php
 
+namespace tests\Models\Services;
+
 use App\Models\Exp;
 use App\Models\User;
 use App\Models\Services\ExpService;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-class ExpServiceTest extends TestCase
+class ExpServiceTest extends ServiceTestCase
 {
-
-    use DatabaseTransactions;
 
     /**
      * @var ExpService
@@ -20,16 +19,6 @@ class ExpServiceTest extends TestCase
         parent::setUp();
 
         $this->service = \App::make(ExpService::class);
-    }
-
-    protected function createUser()
-    {
-        return factory(User::class)->create();
-    }
-
-    protected function createExp()
-    {
-        return factory(Exp::class)->create();
     }
 
     /** @test */

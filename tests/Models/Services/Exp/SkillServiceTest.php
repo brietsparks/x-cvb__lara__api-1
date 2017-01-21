@@ -1,15 +1,15 @@
 <?php
 
+namespace tests\Models\Services\Exp;
+
 use App\Models\Services\Exp\ExpSkillService;
 use App\Models\Exp;
 use App\Models\Skill;
 use App\Models\User;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
+use tests\Models\Services\ServiceTestCase;
 
-class ExpSkillServiceTest extends TestCase
+class SkillServiceTest extends ServiceTestCase
 {
-
-    use DatabaseTransactions;
 
     /**
      * @var ExpSkillService
@@ -21,21 +21,6 @@ class ExpSkillServiceTest extends TestCase
         parent::setUp();
 
         $this->service = \App::make(ExpSkillService::class);
-    }
-
-    protected function createUser()
-    {
-        return factory(User::class)->create();
-    }
-
-    protected function createExp()
-    {
-        return factory(Exp::class)->create();
-    }
-
-    protected function createSkill()
-    {
-        return factory(Skill::class)->create();
     }
 
     /** @test */

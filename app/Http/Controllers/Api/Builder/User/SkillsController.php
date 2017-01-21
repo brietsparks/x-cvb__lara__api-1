@@ -14,7 +14,7 @@ class SkillsController extends BaseSkillsController
     {
         return $this->service->addSkillToUser(
             $request->all(),
-            $this->getUserId($request)
+            $this->getTokenUserId($request)
         );
     }
 
@@ -27,7 +27,7 @@ class SkillsController extends BaseSkillsController
     {
         $this->service->removeSkillFromUser(
             $skill_id,
-            $this->getUserId($request)
+            $this->getTokenUserId($request)
         );
     }
 

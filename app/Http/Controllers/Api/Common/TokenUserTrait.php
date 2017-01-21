@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Auth;
  * Class AccessesUserTrait
  * @package App\Http\Controllers\Api
  */
-trait AccessesUserTrait
+trait TokenUserTrait
 {
 
     /**
@@ -22,9 +22,9 @@ trait AccessesUserTrait
      * @param Request $request
      * @return int
      */
-    public function getUserId(Request $request)
+    public function getTokenUserId(Request $request)
     {
-        return $this->getUser($request)->id;
+        return $this->getTokenUser($request)->id;
     }
 
     /**
@@ -33,7 +33,7 @@ trait AccessesUserTrait
      * @param Request $request
      * @return User|\Illuminate\Contracts\Auth\Authenticatable|null
      */
-    public function getUser(Request $request)
+    public function getTokenUser(Request $request)
     {
         if(!$this->user) {
             /** @var TokenGuard $guard */

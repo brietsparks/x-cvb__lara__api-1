@@ -11,9 +11,16 @@ use App\Http\Controllers\Api\Common\ExpController as BaseExpController;
 class ExpController extends BaseExpController
 {
 
+    public function index(Request $request)
+    {
+        $userId = $this->getTokenUserId($request);
+
+        return $this->service->getExpsByUserId($userId, false);
+    }
+
     public function store(Request $request)
     {
-        $userId = $this->getUserId($request);
+        $userId = $this->getTokenUserId($request);
 
         if($request->get('id')) {
             // todo: error - trying to create exp with existing id
@@ -32,7 +39,7 @@ class ExpController extends BaseExpController
 
     public function update(Request $request)
     {
-        $user = $this->getUser($request);
+        $user = $this->getTokenUser($request);
 
         $expId = $request->get('id');
 
@@ -60,7 +67,7 @@ class ExpController extends BaseExpController
     {
         try {
 
-            $user = $this->getUser($request);
+            $user = $this->getTokenUser($request);
 
             $exp = $user->exps()->where('id', $id)->first();
 
