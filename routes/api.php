@@ -11,11 +11,13 @@ Route::group(['prefix' => 'rest'], function () {
     Route::group(['prefix' => 'v0'], function () {
 
         Route::group(['prefix' => 'builder'], function () {
-        //    Route::resource('user/skills', 'Api\Builder\User\SkillsController');
             Route::resource('exps',                 'Api\Builder\ExpsController');
-            Route::resource('exps/{expId}/skills',  'Api\Builder\Exp\SkillsController');
-            Route::resource('users/{user_id}/exps', 'Api\Builder\User\ExpsController');
+            Route::resource('skills',               'Api\Builder\ExpsController');
 
+            Route::resource('users/{user_id}/exps',     'Api\Builder\User\ExpsController');
+            Route::resource('users/{user_id}/skills',   'Api\Builder\User\SkillsController');
+
+            Route::resource('exps/{exp_id}/skills',     'Api\Builder\Exp\SkillsController');
         });
 
 

@@ -25,13 +25,15 @@ class SkillServiceTest extends ServiceTestCase
     /** @test */
     public function getUserSkill_gets_user_skills()
     {
-        $user = $this->createUser();
+        // context
+        $user = factory(User::class)->create();
         $skills = factory(Skill::class, 5)->create();
-
         $user->skills()->saveMany($skills);
 
+        // action
         $gottenSkills = $this->service->getUserSkills($user->id);
 
+        // assert
         // todo: check if two arrays have the same contents regardless of order
         $this->assertEquals(count($skills), count($gottenSkills));
     }
@@ -39,11 +41,14 @@ class SkillServiceTest extends ServiceTestCase
     /** @test */
     public function addSkillToUser_adds_a_new_skill_to_a_user_and_returns_skill()
     {
+        // context
         $skillData = ['title' => 'Linux'];
-        $user = $this->createUser();
+        $user = factory(User::class)->create();
 
+        // action
         $skill = $this->service->addSkillToUser($skillData, $user->id);
 
+        // assert
         $this->seeInDatabase('user_skill', [
             'skill_id' => $skill->id,
             'user_id' => $user->id
@@ -55,16 +60,20 @@ class SkillServiceTest extends ServiceTestCase
     /** @test */
     public function addSkillToUser_adds_an_existing_skill_to_a_user_that_does_not_have_that_skill()
     {
-        $skill = $this->createSkill();
-        $user = $this->createUser();
+        // context
+        $skill = factory(Skill::class)->create();
+        $user = factory(User::class)->create();
 
+        // sanity
         $this->dontSeeInDatabase('user_skill', [
             'skill_id' => $skill->id,
             'user_id' => $user->id
         ]);
 
+        // action
         $skill = $this->service->addSkillToUser($skill->toArray(), $user->id);
 
+        // assert
         $this->seeInDatabase('user_skill', [
             'skill_id' => $skill->id,
             'user_id' => $user->id
@@ -74,26 +83,30 @@ class SkillServiceTest extends ServiceTestCase
     /** @test */
     public function addSkillToUser_does_not_allow_duplicate_user_skills()
     {
-        $skill = $this->createSkill();
-        $user = $this->createUser();
-
+        // context
+        $skill = factory(Skill::class)->create();
+        $user = factory(User::class)->create();
         $user->skills()->attach($skill->id);
 
+        // action
         $this->service->addSkillToUser($skill->toArray(), $user->id);
 
-        self::assertEquals(count($user->skills()->get()), 1);
+        // assert
+        $this->assertEquals(count($user->skills()->get()), 1);
     }
 
     /** @test */
     public function removeSkillFromUser_removes_a_skill_from_a_user()
     {
-        $skill = $this->createSkill();
-        $user = $this->createUser();
-
+        //context
+        $skill = factory(Skill::class)->create();
+        $user = factory(User::class)->create();
         $user->skills()->attach($skill->id);
 
+        // action
         $this->service->removeSkillFromUser($skill->id, $user->id);
 
+        // assert
         $this->dontSeeInDatabase('user_skill', [
             'skill_id' => $skill->id,
             'user_id' => $user->id
@@ -103,13 +116,15 @@ class SkillServiceTest extends ServiceTestCase
     /** @test */
     public function getUserSkill_gets_a_user_skill()
     {
-        $user = $this->createUser();
-        $skill = $this->createSkill();
-
+        // context
+        $skill = factory(Skill::class)->create();
+        $user = factory(User::class)->create();
         $user->skills()->attach($skill->id);
 
+        // action
         $gottenSkill = $this->service->getUserSkill($user->id, $skill->id);
 
+        // assert
         $this->assertEquals($skill->id, $gottenSkill->id);
     }
 

@@ -26,30 +26,36 @@ class SkillServiceTest extends ServiceTestCase
     /** @test */
     public function getSkillsByExp_gets_skills_by_exp_id()
     {
-        $exp = $this->createExp();
+        // context
+        $exp = factory(Exp::class)->create();
         $exp->save();
 
-        $skill = $this->createSkill();
+        $skill = factory(Skill::class)->create();
         $skill->save();
 
+        // action
         $exp->skills()->attach($skill->id);
 
         $skills = $this->service->getSkillsByExp($exp->id)->toArray();
 
+        // assert
         $this->assertEquals([$skill->toArray()], $skills);
     }
 
     /** @test */
     public function addSkillToExp_adds_an_existing_skill_to_an_existing_exp()
     {
-        $exp = $this->createExp();
+        // context
+        $exp = factory(Exp::class)->create();
         $exp->save();
 
-        $skill = $this->createSkill();
+        $skill = factory(Skill::class)->create();
         $skill->save();
 
+        // action
         $result = $this->service->addSkillToExp($skill->id, $exp->id);
 
+        // assert
         $this->seeInDatabase('exp_skill',[
             'skill_id' => $skill->id,
             'exp_id' => $exp->id
@@ -61,23 +67,25 @@ class SkillServiceTest extends ServiceTestCase
     /** @test */
     public function removeSkillFromExp_removes_an_existing_skill_from_an_existing_exp()
     {
-        // setup
-        $exp = $this->createExp();
+        // context
+        $exp = factory(Exp::class)->create();
         $exp->save();
 
-        $skill = $this->createSkill();
+        $skill = factory(Skill::class)->create();
         $skill->save();
 
         $exp->skills()->attach($skill->id);
 
+        // snaity
         $this->seeInDatabase('exp_skill',[
             'skill_id' => $skill->id,
             'exp_id' => $exp->id
         ]);
 
-        //test
+        // action
         $result = $this->service->removeSkillFromExp($skill->id, $exp->id);
 
+        // assert
         $this->dontSeeInDatabase('exp_skill',[
             'skill_id' => $skill->id,
             'exp_id' => $exp->id

@@ -28,23 +28,22 @@ class SkillsController extends ApiController
         return $this->service->getSkillsByExp($expId);
     }
 
-    public function show()
-    {
-        // todo: common exp skills controller show
-        return true;
-    }
-
-    public function store(Request $request)
+    public function show($expId, $skillId)
     {
         return $this->methodNotAllowed();
     }
 
-    public function update(Request $request, $id)
+    public function store(Request $request, $expId)
     {
         return $this->methodNotAllowed();
     }
 
-    public function destroy($id)
+    public function update(Request $request, $expId, $skillId)
+    {
+        return $this->methodNotAllowed();
+    }
+
+    public function destroy(Request $request, $expId, $skillId)
     {
         return $this->methodNotAllowed();
     }

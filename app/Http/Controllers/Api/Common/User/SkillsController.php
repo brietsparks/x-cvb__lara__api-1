@@ -44,7 +44,7 @@ class SkillsController extends ApiController
         return $this->methodNotAllowed();
     }
 
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
         return $this->methodNotAllowed();
     }
