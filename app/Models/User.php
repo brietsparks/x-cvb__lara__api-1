@@ -29,6 +29,15 @@ class User extends Authenticatable
     }
 
     /**
+     * @return bool
+     */
+    public function isActivated()
+    {
+        // todo: account activation
+        return true;
+    }
+
+    /**
      * @return HasMany
      */
     public function exps()

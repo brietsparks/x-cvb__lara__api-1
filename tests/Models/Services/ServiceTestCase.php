@@ -8,7 +8,7 @@ use tests\ModelHelpers;
 class ServiceTestCase extends \TestCase
 {
 
-    use ModelHelpers;
+//    use ModelHelpers;
     use DatabaseTransactions;
 
 }

@@ -25,7 +25,7 @@ class ExpsController extends ApiController
     
     public function index(Request $request, $user_id) 
     {
-        
+        return $this->service->getExpsByUserId($user_id);
     }
 
     public function store(Request $request)

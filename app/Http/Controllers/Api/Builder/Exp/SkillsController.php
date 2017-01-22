@@ -8,10 +8,11 @@ use Illuminate\Http\Request;
 
 use App\Http\Controllers\Api\Common\Exp\SkillsController as BaseSkillsController;
 
+// builder/exps/{id}/skills/
 class SkillsController extends BaseSkillsController
 {
 
-    public function store(Request $request)
+    public function store(Request $request, $expId)
     {
 
     }

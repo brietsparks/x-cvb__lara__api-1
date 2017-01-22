@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Controllers\Api\Common\User\SkillsController as BaseSkillsController;
 
+// builder/users/{id}/skills/
 class SkillsController extends BaseSkillsController
 {
 
@@ -18,10 +19,6 @@ class SkillsController extends BaseSkillsController
         );
     }
 
-    public function update($user_id, Request $request, $skill_id)
-    {
-
-    }
 
     public function destroy(Request $request, $skill_id)
     {
