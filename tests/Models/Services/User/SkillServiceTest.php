@@ -23,7 +23,7 @@ class SkillServiceTest extends ServiceTestCase
     }
 
     /** @test */
-    public function getUserSkill_gets_user_skills()
+    public function getUserSkills_gets_user_skills()
     {
         // context
         $user = factory(User::class)->create();

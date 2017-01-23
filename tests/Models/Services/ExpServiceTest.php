@@ -26,7 +26,7 @@ class ExpServiceTest extends ServiceTestCase
     {
         // context
         $exp = factory(Exp::class)->create();
-        $user = factory(User::class)->create();
+        $user = $exp->user();
 
         // sanity
         $this->seeInDatabase('exps', [
@@ -49,7 +49,7 @@ class ExpServiceTest extends ServiceTestCase
     public function saveExp_creates_an_new_exp_and_returns_it()
     {
         // context
-        $user = factory(User::class)->make();
+        $user = factory(User::class)->create();
 
         $expData = [
             'title' => 'MyJob',
@@ -70,14 +70,8 @@ class ExpServiceTest extends ServiceTestCase
     public function getExpsByUserId_returns_exps_of_a_user()
     {
         // context
-        $user = factory(User::class)->make();
-        $exps = factory(Exp::class, 5)->create();
-
-        foreach ($exps as $exp) {
-            $exp->user_id = $user->id;
-            $q = [$user->id];
-            $exp->save();
-        }
+        $user = factory(User::class)->create();
+        $exps = factory(Exp::class, 5)->create(['user_id' => $user->id]);
 
         // action
         $gottenExps = $this->service->getExpsByUserId($user->id);
@@ -91,8 +85,6 @@ class ExpServiceTest extends ServiceTestCase
     {
         // context
         $exp = factory(Exp::class)->create();
-        $user = $exp->user();
-        $user->save();
 
         // action
         $gottenExp = $this->service->getExpById($exp->id);
@@ -106,9 +98,8 @@ class ExpServiceTest extends ServiceTestCase
     public function deleteExpById_soft_deletes_exp_by_id()
     {
         //context
-        $exp = $this->createExp();
+        $exp = factory(Exp::class)->create();
         $user = $exp->user();
-        $user->save();
 
         // sanity
         $this->seeInDatabase('exps', $exp->toArray());

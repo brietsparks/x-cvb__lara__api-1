@@ -28,14 +28,10 @@ class SkillServiceTest extends ServiceTestCase
     {
         // context
         $exp = factory(Exp::class)->create();
-        $exp->save();
-
         $skill = factory(Skill::class)->create();
-        $skill->save();
-
-        // action
         $exp->skills()->attach($skill->id);
 
+        // action
         $skills = $this->service->getSkillsByExp($exp->id)->toArray();
 
         // assert
@@ -47,10 +43,7 @@ class SkillServiceTest extends ServiceTestCase
     {
         // context
         $exp = factory(Exp::class)->create();
-        $exp->save();
-
         $skill = factory(Skill::class)->create();
-        $skill->save();
 
         // action
         $result = $this->service->addSkillToExp($skill->id, $exp->id);
@@ -69,14 +62,10 @@ class SkillServiceTest extends ServiceTestCase
     {
         // context
         $exp = factory(Exp::class)->create();
-        $exp->save();
-
         $skill = factory(Skill::class)->create();
-        $skill->save();
-
         $exp->skills()->attach($skill->id);
 
-        // snaity
+        // sanity
         $this->seeInDatabase('exp_skill',[
             'skill_id' => $skill->id,
             'exp_id' => $exp->id
@@ -90,5 +79,7 @@ class SkillServiceTest extends ServiceTestCase
             'skill_id' => $skill->id,
             'exp_id' => $exp->id
         ]);
+
+        $this->assertTrue($result);
     }
 }
