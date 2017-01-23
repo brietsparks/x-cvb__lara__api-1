@@ -103,6 +103,7 @@ class ExpService
         }
 
         $exp->$relationship()->sync($keys);
+
     }
 
 }

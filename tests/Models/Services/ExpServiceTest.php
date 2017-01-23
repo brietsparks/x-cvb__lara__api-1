@@ -49,20 +49,16 @@ class ExpServiceTest extends ServiceTestCase
     public function saveExp_creates_an_new_exp_and_returns_it()
     {
         // context
-        $user = factory(User::class)->create();
+        $expData = factory(Exp::class)->make()->toArray();
 
-        $expData = [
-            'title' => 'MyJob',
-            'subtitle' => 'MyJobSubtitle',
-            'type' => 'default'
-        ];
+        // sanity
+        $this->dontSeeInDatabase('exps', $expData);
 
         // action
-        $returnedExp = $this->service->saveExp($expData, $user->id);
+        $returnedExp = $this->service->saveExp($expData, $expData['user_id']);
 
         // assert
         $this->seeInDatabase('exps', $expData);
-
         $this->assertEquals($expData['title'], $returnedExp->title);
     }
 
@@ -108,9 +104,7 @@ class ExpServiceTest extends ServiceTestCase
         $this->service->deleteExpById($exp->id);
 
         // assert
-        $gottenExp = Exp::find($exp->id);
-
-        $this->assertNull($gottenExp);
+        $this->dontSeeInDatabase('exps', $exp->toArray());
     }
 
 }

@@ -19,9 +19,13 @@ class RestApiTestCase extends \TestCase
         parent::setUp();
     }
 
+    /**
+     * @return User
+     */
     public function persistAuthUser()
     {
-        $user = $this->createAuthUser();
+        $user = factory(User::class)->create();
+        $this->actingAs($user);
 
         return $user;
     }

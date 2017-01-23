@@ -50,16 +50,20 @@ class SkillServiceTest extends ServiceTestCase
     public function createSkill_returns_the_created_skill()
     {
         // context
-        $skillData = $this->makeSkillData();
-        $user = factory(User::class)->create();
+        $skillData = factory(Skill::class)->make()->toArray();
+        $userId = $skillData['creator_id'];
+
+        // sanity
+        $this->dontSeeInDatabase('skills', $skillData);
 
         // action
-        $skill = $this->service->createSkill($skillData, $user->id);
+        $skill = $this->service->createSkill($skillData, $userId);
 
         // assert
+        $this->seeInDatabase('skills', $skillData);
         $this->assertTrue($skill instanceof Skill);
         $this->assertEquals($skill->title, $skillData['title']);
-        $this->assertEquals($skill->creator_id, $user->id);
+        $this->assertEquals($skill->creator_id, $userId);
         $this->assertNotNull($skill->id);
     }
 
